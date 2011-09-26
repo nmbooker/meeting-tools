@@ -1,0 +1,19 @@
+= README for Minutes Processor
+
+== Formatting Minutes
+=== Delineating Topics
+* Prefix topics with =
+* Prefix subtopics with ==
+* Prefix sub-subtopics with ===
+* Prefix sub-sub-subtopics with ====
+
+=== Marking actions
+* Prefix TODO items with 'TODO: '
+* Stick with putting PERSON: after the TODO: for now, we might use this in future scripts.
+
+== Common Tasks
+=== Producing Minutes for posting and easy reading
+ minutes.rb < minutes.min > minutes.txt
+
+=== Producing Minutes for easy note-taking on paper
+ minutes.rb -n < minutes.min > minutes.notes
