@@ -1,6 +1,8 @@
 = README for Minutes Processor
 
 == Formatting Minutes
+Suggested file extension: .min
+
 === Delineating Topics
 * Prefix topics with =
 * Prefix subtopics with ==
@@ -17,3 +19,11 @@
 
 === Producing Minutes for easy note-taking on paper
  minutes.rb -n < minutes.min > minutes.notes
+
+== Dependencies
+Some scripts are written in Ruby 1.9, some in Python, and some using standard GNU utilities.
+=== minutes.rb
+* Ruby 1.9 or higher
+
+=== creole2html
+* Python 2.6 or higher
