@@ -31,11 +31,11 @@ class MinutesProcessor
     @already_in_todo_list = true
     if line =~ /^\s*TODO: ?/ then
       # Indent each To Do item by 2 spaces.
-      print line.sub(/^\s*TODO: ?/, "  ")
+      print line.sub(/^\s*TODO: ?/, " * ")
     else
       # Continuation of a To Do item onto a new line:
       # make the first non-whitespace character a colon
-      print line.sub(/^\s*: ?/, "      ")
+      print line.sub(/^\s*: ?/, "       ")
     end
   end
 
