@@ -59,7 +59,7 @@ end
 def main
   options = {}
   OptionParser.new do |opts|
-    opts.banner = "Usage: #{$PROGRAM_NAME} [options] < minutes.creole"
+    opts.banner = "Usage: #{$PROGRAM_NAME} [options] < minutes.min"
 
     opts.on("-n", "--notespace", "Format with space for notes") do |n|
       options[:notes] = n
