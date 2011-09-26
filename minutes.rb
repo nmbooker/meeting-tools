@@ -7,6 +7,7 @@ class MinutesProcessor
   def initialize(options)
     @options = options
     @title_number = Numbering.new
+    @already_in_todo_list = false
   end
 
   def process_heading_line(line)
@@ -25,12 +26,30 @@ class MinutesProcessor
     end
   end
 
+  def process_todo_line(line)
+    puts "To Do:" unless @already_in_todo_list
+    @already_in_todo_list = true
+    if line =~ /^\s*TODO: ?/ then
+      # Indent each To Do item by 2 spaces.
+      print line.sub(/^\s*TODO: ?/, "  ")
+    else
+      # Continuation of a To Do item onto a new line:
+      # make the first non-whitespace character a colon
+      print line.sub(/^\s*: ?/, "      ")
+    end
+  end
+
   def process_minutes
     title_number = Numbering.new
     for line in $stdin
       if line =~ /^=/ then
         process_heading_line(line)
+      elsif line =~ /^\s*TODO:/
+        process_todo_line(line)
+      elsif @already_in_todo_list && line =~ /^\s*:/
+        process_todo_line(line)
       else
+        @already_in_todo_list = false
         print line
       end
     end
