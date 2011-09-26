@@ -1,5 +1,7 @@
 #! /usr/bin/env ruby
 
+require 'optparse'
+
 # Track numbering of sections or bulleted lists, up to 4 levels
 class Numbering
   def initialize
@@ -34,6 +36,15 @@ class Numbering
   end
 end
 
+options = {}
+OptionParser.new do |opts|
+  opts.banner = "Usage: #{$PROGRAM_NAME} [options] < minutes.creole"
+
+  opts.on("-n", "--notespace", "Format with space for notes") do |n|
+    options[:notes] = n
+  end
+end.parse!
+
 title_number = Numbering.new
 for line in $stdin
   num = case line
@@ -46,6 +57,7 @@ for line in $stdin
   if num.nil?
     print line
   else
+    print "\n\n\n\n\n\n" if options[:notes]
     print line.sub(/^=+/, "#{num}.")
   end
 end
