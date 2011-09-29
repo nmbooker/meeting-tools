@@ -21,7 +21,7 @@ class MinutesProcessor
     if num.nil?
       print line
     else
-      print "\n\n\n\n\n\n" if @options[:notes]
+      print "\n\n\n" if @options[:notes]
       print line.sub(/^=+/, "#{num}.")
     end
   end
