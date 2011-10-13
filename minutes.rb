@@ -39,6 +39,16 @@ class MinutesProcessor
     end
   end
 
+  def process_done_line(line)
+    puts "Done:" unless @already_in_done_list
+    @already_in_done_list = true
+    if line =~ /^\s*DONE: ?/ then
+      print line.sub(/^\s*DONE: ?/, "* ")
+    else
+      print line.sub(/^\s*: ?/, "      ")
+    end
+  end
+
   def process_minutes
     title_number = Numbering.new
     for line in $stdin
@@ -48,8 +58,12 @@ class MinutesProcessor
         process_todo_line(line)
       elsif @already_in_todo_list && line =~ /^\s*:/
         process_todo_line(line)
+      elsif line =~ /^\s*DONE:/
+        process_done_line(line)
+      elsif @already_in_done_list && line =~ /^\s*:/
+        process_done_line(line)
       else
-        @already_in_todo_list = false
+        @already_in_todo_list = @already_in_done_list = false
         print line
       end
     end
