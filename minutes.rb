@@ -17,6 +17,10 @@ class MinutesProcessor
 
   public
   def process_heading_line(line)
+    if @options[:creole]
+      out.print('=' + line)
+      return
+    end
     num = case line
       when /^====/ then @title_number.h4
       when /^===/ then @title_number.h3
@@ -97,6 +101,9 @@ def main
 
     opts.on("-n", "--notespace", "Format with space for notes") do |n|
       options[:notes] = n
+    end
+    opts.on("-c", "--creole", "Format with Creole rather than doing numbering") do |c|
+      options[:creole] = c
     end
   end.parse!
   infile = ARGV[0] || '-'
