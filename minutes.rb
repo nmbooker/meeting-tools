@@ -55,6 +55,16 @@ class MinutesProcessor
     end
   end
 
+  def process_future_line(line)
+    out.puts "Future:" unless @already_in_future_list
+    @already_in_future_list = true
+    if line =~ /^\s*FUTURE: ?/ then
+      out.print line.sub(/^\s*FUTURE: ?/, "* ")
+    else
+      out.print line.sub(/^\s*: ?/, "      ")
+    end
+  end
+
   def process_minutes
     title_number = Numbering.new
     for line in @options[:infile]
@@ -68,8 +78,12 @@ class MinutesProcessor
         process_done_line(line)
       elsif @already_in_done_list && line =~ /^\s*:/
         process_done_line(line)
+      elsif line =~ /^\s*FUTURE:/
+        process_future_line(line)
+      elsif @already_in_future_list && line =~ /^\s*:/
+        process_future_line(line)
       else
-        @already_in_todo_list = @already_in_done_list = false
+        @already_in_todo_list = @already_in_done_list = @already_in_future_list = false
         out.print line
       end
     end
