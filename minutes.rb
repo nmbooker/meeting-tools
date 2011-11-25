@@ -99,7 +99,6 @@ def main
       options[:notes] = n
     end
   end.parse!
-  p ARGV
   infile = ARGV[0] || '-'
   outfile = ARGV[1] || '-'
   options[:infile] = if infile == '-' then $stdin else File.open(infile) end
