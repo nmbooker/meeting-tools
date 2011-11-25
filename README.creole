@@ -15,10 +15,10 @@ Suggested file extension: .min
 
 == Common Tasks
 === Producing Minutes for posting and easy reading
- minutes.rb < minutes.min > minutes.txt
+ minutes.rb minutes.min minutes.txt
 
 === Producing Minutes for easy note-taking on paper
- minutes.rb -n < minutes.min > minutes.notes
+ minutes.rb -n minutes.min minutes.notes
 
 == Dependencies
 Some scripts are written in Ruby 1.9, some in Python, and some using standard GNU utilities.
