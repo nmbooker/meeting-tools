@@ -22,7 +22,7 @@ class ToDoInterpreter < Meeting::MinutesInterpreter
 
   # We just output the section headings as found in the original text.
   def start_section(level, title, original_text)
-    out.write original_text
+    out.write reader.original_text
   end
 
   # Put an extra blank line at the end of each section.

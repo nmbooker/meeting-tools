@@ -14,6 +14,7 @@ module Meeting
       @in_special_list_item = false
       @interp.reader = self
       @list_item_line_number = 0
+      @line = nil
     end
 
     # Process a file.
@@ -31,6 +32,7 @@ module Meeting
 
     # Process a single line of the input file.
     def process_line(line)
+      @line = line
       if line =~ /^=/ then
         process_heading_line(line)
       elsif (listtype = special_list_line_type(line)) then
@@ -62,6 +64,11 @@ module Meeting
       in_special_list? ? @list_item_line_number : nil
     end
 
+    # Get the original text of the current line.
+    def original_text
+      @line
+    end
+
     private
     def process_heading_line(line)
       end_of_section
@@ -69,7 +76,7 @@ module Meeting
       matchobj = /^(=+) +(.*)$/.match(line)
       level = matchobj[1].length
       title = matchobj[2]
-      @interp.start_section(level, title, line)
+      @interp.start_section(level, title)
     end
 
     # This returns nil if not a special list line.
@@ -93,13 +100,13 @@ module Meeting
       @list_item_line_number += 1
       @interp.start_special_list_item
       text = line.sub(/^\s*[^:]+: ?/, '')
-      @interp.special_list_item_line(text, line)
+      @interp.special_list_item_line(text)
     end
 
     def special_list_continuation_line(line)
       if @in_special_list and @in_special_list_item
         text = line.sub(/^\s*: ?/, '')
-        @interp.special_list_item_line(text, line)
+        @interp.special_list_item_line(text)
       else
         @interp.normal_line(line)
       end
@@ -137,12 +144,12 @@ module Meeting
     attr_accessor :reader
 
     # Signals a line this interpreter has no special meaning for.
-    def normal_line(original_text)
+    def normal_line(text)
     end
 
     # Signals the start of a section / subsection / subsubsection etc.
     # Level starts from 1.
-    def start_section(level, title, original_text)
+    def start_section(level, title)
     end
 
     # Signals the end of the current section at whatever level.
@@ -162,7 +169,7 @@ module Meeting
     end
 
     # Add text to a special list item.
-    def special_list_item_line(text, original_text)
+    def special_list_item_line(text)
     end
 
     # At the end of a special list item, this is called.
@@ -177,11 +184,11 @@ module Meeting
   end
 
   class TestMinutesInterpreter < MinutesInterpreter
-    def normal_line(original_text)
-      $stdout.write("NORMAL:          #{original_text}")
+    def normal_line(text)
+      $stdout.write("NORMAL:          #{text}")
     end
 
-    def start_section(level, text, original_text)
+    def start_section(level, text)
       $stdout.puts("SECTION LEVEL #{level}: #{text}")
     end
 
@@ -197,7 +204,7 @@ module Meeting
       $stdout.puts(" START LIST ITEM")
     end
 
-    def special_list_item_line(text, original_text)
+    def special_list_item_line(text)
       $stdout.write("  ITEM TEXT:     #{text}")
     end
 
