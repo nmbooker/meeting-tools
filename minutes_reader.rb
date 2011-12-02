@@ -12,6 +12,7 @@ module Meeting
       @had_heading = false
       @in_special_list = false
       @in_special_list_item = false
+      @interp.reader = self
     end
 
     # Process a file.
@@ -38,6 +39,16 @@ module Meeting
       else
         @interp.normal_line(line)
       end
+    end
+
+    # Get the current special list type if any.
+    def special_list_type
+      @in_special_list ? @in_special_list : nil
+    end
+
+    # Get whether in a special list.
+    def in_special_list?
+      @in_special_list ? true : false
     end
 
     private
@@ -110,6 +121,8 @@ module Meeting
   # Base class for minutes interpreter.
   # Defines a series of hooks you should override if you want to use the given info.
   class MinutesInterpreter
+    attr_accessor :reader
+
     # Signals a line this interpreter has no special meaning for.
     def normal_line(original_text)
     end

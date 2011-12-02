@@ -7,23 +7,14 @@ require_relative 'minutes_reader'
 class ToDoInterpreter < Meeting::MinutesInterpreter
   def initialize
     @outfile = $stdout
-    @in_list = nil
   end
 
   def out
     @outfile
   end
 
-  def start_special_list(list_type)
-    @in_list = list_type
-  end
-
-  def end_special_list
-    @in_list = false
-  end
-
   def special_list_item_line(first_line, text, original_text)
-    return unless @in_list == :TODO
+    return unless reader.special_list_type == :TODO
     if first_line
       out.write "* " + text
     else
