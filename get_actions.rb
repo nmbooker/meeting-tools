@@ -8,7 +8,6 @@ class ToDoInterpreter < Meeting::MinutesInterpreter
   def initialize
     @outfile = $stdout
     @in_list = nil
-    @in_item = false
   end
 
   def out
