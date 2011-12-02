@@ -70,13 +70,13 @@ module Meeting
       @in_special_list_item = list_type   # And the start of this one
       @interp.start_special_list_item
       text = line.sub(/^\s*[^:]+: ?/, '')
-      @interp.special_list_item_line(text, line)
+      @interp.special_list_item_line(true, text, line)
     end
 
     def special_list_continuation_line(line)
       if @in_special_list and @in_special_list_item
         text = line.sub(/^\s*: ?/, '')
-        @interp.special_list_item_line(text, line)
+        @interp.special_list_item_line(false, text, line)
       else
         @interp.normal_line(line)
       end
@@ -136,7 +136,7 @@ module Meeting
     end
 
     # Add text to a special list item.
-    def special_list_item_line(text, original_text)
+    def special_list_item_line(first_line, text, original_text)
     end
 
     # At the end of a special list item, this is called.
@@ -171,7 +171,7 @@ module Meeting
       $stdout.puts(" START LIST ITEM")
     end
 
-    def special_list_item_line(text, original_text)
+    def special_list_item_line(first_line, text, original_text)
       $stdout.write("  ITEM TEXT:     #{text}")
     end
 

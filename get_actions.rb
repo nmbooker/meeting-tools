@@ -23,20 +23,12 @@ class ToDoInterpreter < Meeting::MinutesInterpreter
     @in_list = false
   end
 
-  def start_special_list_item
-    @new_item = true
-  end
-
-  def end_special_list_item
-    @new_item = false
-  end
-
-  def special_list_item_line(text, original_text)
-    text = text.strip
-    if @new_item
-      out.puts "* " + text
+  def special_list_item_line(first_line, text, original_text)
+    return unless @in_list == :TODO
+    if first_line
+      out.write "* " + text
     else
-      out.puts "  " + text
+      out.write "  " + text
     end
   end
 
