@@ -13,7 +13,7 @@ class ToDoInterpreter < Meeting::MinutesInterpreter
     @outfile
   end
 
-  def special_list_item_line(first_line, text, original_text)
+  def special_list_item_line(text, original_text)
     return unless reader.in_special_list?(:TODO)
     if reader.list_item_line_number == 1
       out.write "* " + text
