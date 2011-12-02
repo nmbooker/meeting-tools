@@ -14,8 +14,8 @@ class ToDoInterpreter < Meeting::MinutesInterpreter
   end
 
   def special_list_item_line(first_line, text, original_text)
-    return unless reader.special_list_type == :TODO
-    if first_line
+    return unless reader.in_special_list?(:TODO)
+    if reader.list_item_line_number == 1
       out.write "* " + text
     else
       out.write "  " + text

@@ -13,6 +13,7 @@ module Meeting
       @in_special_list = false
       @in_special_list_item = false
       @interp.reader = self
+      @list_item_line_number = 0
     end
 
     # Process a file.
@@ -47,8 +48,18 @@ module Meeting
     end
 
     # Get whether in a special list.
-    def in_special_list?
-      @in_special_list ? true : false
+    # You can optionally specify a specific list type.
+    def in_special_list?(list_type=nil)
+      if list_type.nil?
+        @in_special_list ? true : false
+      else
+        @in_special_list == list_type
+      end
+    end
+
+    # Get the current line number within a special list item counting from 1, or nil if not in one.
+    def list_item_line_number
+      in_special_list? ? @list_item_line_number : nil
     end
 
     private
@@ -79,6 +90,7 @@ module Meeting
       end
       end_of_special_list_item    # Implicitly end of the last item
       @in_special_list_item = list_type   # And the start of this one
+      @list_item_line_number += 1
       @interp.start_special_list_item
       text = line.sub(/^\s*[^:]+: ?/, '')
       @interp.special_list_item_line(true, text, line)
@@ -110,6 +122,7 @@ module Meeting
       if @in_special_list_item
         @interp.end_special_list_item
         @in_special_list_item = false
+        @list_item_line_number = 0
       end
     end
 
