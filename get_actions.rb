@@ -36,7 +36,7 @@ class ToDoInterpreter < Meeting::MinutesInterpreter
   end
 
   def end_section
-    puts ""
+    out.puts ""
   end
 end
 
