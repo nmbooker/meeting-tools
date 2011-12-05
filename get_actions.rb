@@ -11,7 +11,7 @@ class ToDoInterpreter < Meeting::MinutesInterpreter
   end
 
   # To-do lists are output as bulleted lists.
-  def special_list_item_line(text, original_text)
+  def special_list_item_line(text)
     return unless reader.in_special_list?(:TODO)
     if reader.list_item_line_number == 1
       out.write "* " + text
@@ -21,7 +21,7 @@ class ToDoInterpreter < Meeting::MinutesInterpreter
   end
 
   # We just output the section headings as found in the original text.
-  def start_section(level, title, original_text)
+  def start_section(level, title)
     out.write reader.original_text
   end
 
