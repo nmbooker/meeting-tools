@@ -20,6 +20,12 @@ Suggested file extension: .min
 === Producing Minutes for easy note-taking on paper
  minutes.rb -n minutes.min minutes.notes
 
+=== Producing a list of TODO items
+Note get_actions.rb works on stdin and stdout, not with filenames provided
+on command line.  I intend to change that later.
+
+ get_actions.rb < minutes.min > actions.txt
+
 == Dependencies
 Some scripts are written in Ruby 1.9, some in Python, and some using standard GNU utilities.
 === minutes.rb
