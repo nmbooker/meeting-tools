@@ -1,0 +1,7 @@
+#! /usr/bin/env python
+# -*- coding: utf-8 -*-
+
+from creoleparser import text2html
+import sys
+
+print(text2html(sys.stdin.read()))
