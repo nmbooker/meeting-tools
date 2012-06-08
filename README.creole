@@ -33,6 +33,14 @@ or to only get actions for a certain person:
 e.g. the following will get actions that are unassigned or are assigned to one of QW or NB:
  get_actions.rb QW NB < minutes.min > actions.txt
 
+=== Numbering the headings in the TODO list
+The list of TODO items is currently passed through with the Creole markup for headings.  You can get the headings numbered instead with:
+
+ number_headings.rb < creole_headings.txt > formatted_headings.txt
+
+You might well want to chain them together, e.g.:
+ cat minutes.min | get_actions.rb NB | number_headings.rb > actions.txt
+
 == Dependencies
 Some scripts are written in Ruby 1.9, some in Python, and some using standard GNU utilities.
 === minutes.rb
