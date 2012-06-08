@@ -26,6 +26,13 @@ on command line.  I intend to change that later.
 
  get_actions.rb < minutes.min > actions.txt
 
+or to only get actions for a certain person:
+
+ get_actions.rb INITIALS [...] < minutes.min > actions.txt
+
+e.g. the following will get actions that are unassigned or are assigned to one of QW or NB:
+ get_actions.rb QW NB < minutes.min > actions.txt
+
 == Dependencies
 Some scripts are written in Ruby 1.9, some in Python, and some using standard GNU utilities.
 === minutes.rb
