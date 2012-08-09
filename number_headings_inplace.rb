@@ -27,7 +27,7 @@ class MinutesProcessor
     if num.nil?
       out.print line
     else
-      out.print "#{line.chomp}  # TOPIC #{num} #"
+      out.puts "#{line.chomp}  # TOPIC #{num} #"
     end
   end
 
