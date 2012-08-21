@@ -108,9 +108,9 @@ def main
   end.parse!
   infile = ARGV[0] || '-'
   outfile = if ARGV[1] then ARGV[1]
-         elsif infile =~ /\.min$/ then infile.sub(/min$/, 'txt')
-         else '-'
-         end
+            elsif infile == '-' then '-'
+            else infile + '.txt'
+            end
   options[:infile] = if infile == '-' then $stdin else File.open(infile) end
   options[:outfile] = if outfile == '-' then $stdout else File.open(outfile, 'w') end
   MinutesProcessor.new(options).process_minutes
