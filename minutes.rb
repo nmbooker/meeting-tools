@@ -109,7 +109,7 @@ def main
   infile = ARGV[0] || '-'
   outfile = if ARGV[1] then ARGV[1]
             elsif infile == '-' then '-'
-            else infile + '.txt'
+            else infile + (options[:notes] ? '.notes' : '.txt')
             end
   options[:infile] = if infile == '-' then $stdin else File.open(infile) end
   options[:outfile] = if outfile == '-' then $stdout else File.open(outfile, 'w') end
