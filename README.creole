@@ -15,10 +15,16 @@ Suggested file extension: .min
 
 == Common Tasks
 === Producing Minutes for posting and easy reading
- minutes.rb minutes.min minutes.txt
+ minutes.rb minutes.min
+
+that will produce minutes.min.txt unless you specify another filename as
+the second argument.
 
 === Producing Minutes for easy note-taking on paper
- minutes.rb -n minutes.min minutes.notes
+ minutes.rb -n minutes.min
+
+that will produce minutes.min.notes unless you specify another filename as
+the second argument.
 
 === Producing a list of TODO items
 Note get_actions.rb works on stdin and stdout, not with filenames provided
