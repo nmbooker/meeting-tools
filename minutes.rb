@@ -75,15 +75,15 @@ class MinutesProcessor
     for line in @options[:infile]
       if line =~ /^=/ then
         process_heading_line(line)
-      elsif line =~ /^\s*TODO:/
+      elsif line =~ /^\s*(TODO|@T):/
         process_todo_line(line)
       elsif @already_in_todo_list && line =~ /^\s*:/
         process_todo_line(line)
-      elsif line =~ /^\s*DONE:/
+      elsif line =~ /^\s*(DONE|@D):/
         process_done_line(line)
       elsif @already_in_done_list && line =~ /^\s*:/
         process_done_line(line)
-      elsif line =~ /^\s*FUTURE:/
+      elsif line =~ /^\s*(FUTURE|@F):/
         process_future_line(line)
       elsif @already_in_future_list && line =~ /^\s*:/
         process_future_line(line)
