@@ -82,9 +82,9 @@ module Meeting
     # This returns nil if not a special list line.
     def special_list_line_type(line)
       case line
-        when /^\s*TODO:/ then :TODO
-        when /^\s*DONE:/ then :DONE
-        when /^\s*FUTURE:/ then :FUTURE
+        when /^\s*(TODO|@T):/ then :TODO
+        when /^\s*(DONE|@D):/ then :DONE
+        when /^\s*(FUTURE|@F):/ then :FUTURE
         else nil
       end
     end
