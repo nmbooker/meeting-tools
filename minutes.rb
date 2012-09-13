@@ -2,6 +2,7 @@
 
 require 'optparse'
 require_relative 'numbering'
+require_relative 'minutes_reader'
 
 class MinutesProcessor
   def initialize(options)
@@ -39,9 +40,9 @@ class MinutesProcessor
   def process_todo_line(line)
     out.puts "To Do:" unless @already_in_todo_list
     @already_in_todo_list = true
-    if line =~ /^\s*TODO: ?/ then
+    if line =~ /^\s*(TODO|@T): ?/ then
       # Indent each To Do item by 2 spaces.
-      out.print line.sub(/^\s*TODO: ?/, "* ")
+      out.print line.sub(/^\s*(TODO|@T): ?/, "* ")
     else
       # Continuation of a To Do item onto a new line:
       # make the first non-whitespace character a colon
@@ -52,8 +53,8 @@ class MinutesProcessor
   def process_done_line(line)
     out.puts "Done:" unless @already_in_done_list
     @already_in_done_list = true
-    if line =~ /^\s*DONE: ?/ then
-      out.print line.sub(/^\s*DONE: ?/, "* ")
+    if line =~ /^\s*(DONE|@D): ?/ then
+      out.print line.sub(/^\s*(DONE|@D): ?/, "* ")
     else
       out.print line.sub(/^\s*: ?/, "      ")
     end
@@ -62,8 +63,8 @@ class MinutesProcessor
   def process_future_line(line)
     out.puts "Future:" unless @already_in_future_list
     @already_in_future_list = true
-    if line =~ /^\s*FUTURE: ?/ then
-      out.print line.sub(/^\s*FUTURE: ?/, "* ")
+    if line =~ /^\s*(FUTURE|@F): ?/ then
+      out.print line.sub(/^\s*(FUTURE|@F): ?/, "* ")
     else
       out.print line.sub(/^\s*: ?/, "      ")
     end
