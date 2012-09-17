@@ -24,6 +24,7 @@ module Meeting
 
     # Processes all the given lines
     def process_lines(input_file)
+      @interp.at_beginning
       for line in input_file
         process_line(line)
       end
@@ -135,6 +136,7 @@ module Meeting
 
     def end_of_file
       end_of_section  # implicit at end of file
+      @interp.at_end
     end
   end
 
@@ -142,6 +144,14 @@ module Meeting
   # Defines a series of hooks you should override if you want to use the given info.
   class MinutesInterpreter
     attr_accessor :reader
+
+    # Done just before process starts.
+    def at_beginning
+    end
+
+    # Done just before exiting.
+    def at_end
+    end
 
     # Signals a line this interpreter has no special meaning for.
     def normal_line(text)
@@ -184,6 +194,14 @@ module Meeting
   end
 
   class TestMinutesInterpreter < MinutesInterpreter
+    def at_beginning
+      $stdout.puts("AT_BEGINNING")
+    end
+
+    def at_end
+      $stdout.puts("AT_END")
+    end
+
     def normal_line(text)
       $stdout.write("NORMAL:          #{text}")
     end
