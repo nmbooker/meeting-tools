@@ -10,8 +10,38 @@ Suggested file extension: .min
 * Prefix sub-sub-subtopics with ====
 
 === Marking actions
-* Prefix TODO items with 'TODO: '
-* Stick with putting PERSON: after the TODO: for now, we might use this in future scripts.
+* Prefix:
+** Actions with '@T: '
+** Items done since last meeting or while meeting is in progress with '@D: '
+** Future items not yet actionable, but to be aware of, with '@F: '
+* You should follow @T:, @F: or @D: with the initials of the actionee.
+* You should group together each type into their own list, preferably with a blank line between the lists.
+
+For example:
+
+{{{
+@D: NB: Wrote some code to frobinicate the widget.
+@D: NB/FB: Got together to discuss additional widget methods.
+
+@T: NB/FB: Design the next few widget methods.
+@T: We need to discuss how we gauge API stability.
+
+@F: NB: Publish the widget source code once the API is fairly stable.
+}}}
+
+In the above, note that the second @T doesn't have anyone in particular associated
+with it.  That doesn't currently affect the output of minutes.rb, but does
+affect the output of get_actions.rb which will always produce unassigned
+TODO items even if a set of actionees are specified on the command line.
+
+=== Aliases
+
+The shortened @T, @D and @F notation were introduced recently.
+Older minutes use the longer notations 'TODO: ', 'DONE: ', 'FUTURE: '
+
+The shortened notations were introduced to make it easier to change
+the status of items in a meeting session (a single character replacement
+rather than a word replacement).
 
 == Common Tasks
 === Producing Minutes for posting and easy reading
